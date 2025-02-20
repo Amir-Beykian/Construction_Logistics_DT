@@ -6,6 +6,7 @@ import ProjectDashboard from "./pages/ProjectDashboard";
 import SupplierDashboard from "./pages/SupplierDashboard";
 import BouwhubDashboard from "./pages/BouwhubDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
+import ProtectedRoute from "./auth/ProtectedRoute";
 
 function App() {
   return (
@@ -13,10 +14,24 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
-        <Route path="/dashboard/project" element={<ProjectDashboard />} />
-        <Route path="/dashboard/supplier" element={<SupplierDashboard />} />
-        <Route path="/dashboard/bouwhub" element={<BouwhubDashboard />} />
-        <Route path="/dashboard/admin" element={<AdminDashboard />} />
+
+        {/* Protected Routes */}
+        <Route
+          path="/dashboard/project"
+          element={<ProtectedRoute element={<ProjectDashboard />} allowedRoles={["project"]} />}
+        />
+        <Route
+          path="/dashboard/supplier"
+          element={<ProtectedRoute element={<SupplierDashboard />} allowedRoles={["supplier"]} />}
+        />
+        <Route
+          path="/dashboard/bouwhub"
+          element={<ProtectedRoute element={<BouwhubDashboard />} allowedRoles={["bouwhub"]} />}
+        />
+        <Route
+          path="/dashboard/admin"
+          element={<ProtectedRoute element={<AdminDashboard />} allowedRoles={["admin"]} />}
+        />
       </Routes>
     </Router>
   );
